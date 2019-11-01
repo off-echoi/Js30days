@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Drum Kit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+  <div class="keys">
+    <div data-key="65" class="key">
+      <kbd>A</kbd>
+      <span class="sound">clap</span>
+    </div>
+    <div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="sound">hihat</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="sound">kick</span>
+    </div>
+    <div data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="sound">openhat</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="sound">boom</span>
+    </div>
+    <div data-key="72" class="key">
+      <kbd>H</kbd>
+      <span class="sound">ride</span>
+    </div>
+    <div data-key="74" class="key">
+      <kbd>J</kbd>
+      <span class="sound">snare</span>
+    </div>
+    <div data-key="75" class="key">
+      <kbd>K</kbd>
+      <span class="sound">tom</span>
+    </div>
+    <div data-key="76" class="key">
+      <kbd>L</kbd>
+      <span class="sound">tink</span>
+    </div>
+  </div>
+
+  <audio data-key="65" src="sounds/clap.wav"></audio>
+  <audio data-key="83" src="sounds/hihat.wav"></audio>
+  <audio data-key="68" src="sounds/kick.wav"></audio>
+  <audio data-key="70" src="sounds/openhat.wav"></audio>
+  <audio data-key="71" src="sounds/boom.wav"></audio>
+  <audio data-key="72" src="sounds/ride.wav"></audio>
+  <audio data-key="74" src="sounds/snare.wav"></audio>
+  <audio data-key="75" src="sounds/tom.wav"></audio>
+  <audio data-key="76" src="sounds/tink.wav"></audio>
+
+<script>  
+  // const key = document.querySelectorAll('.key');
+  // const keys = document.querySelector('.keys');
+  // const audio = document.querySelectorAll('audio');
+  // let i;
+
+  // const soundeFunc=(e)=>{
+  //   // console.log(e.keyCode);
+  //   for(i =0; i<key.length;i++ ){
+  //     let buttonKey = Number(key[i].getAttribute('data-key'));
+
+  //     if(buttonKey === e.keyCode){
+  //       // console.log('일치');
+  //       key[i].classList.add('playing');
+  //       audio[i].play();
+  //     }
+  //   }
+  // }
+  // const silentFunc=(e)=>{
+  //   for(i =0; i<key.length;i++ ){
+  //     let buttonKey = Number(key[i].getAttribute('data-key'));
+  //     key[i].classList.remove('playing');
+  //     audio[i].pause();
+  //   }
+  // }
+
+  // window.addEventListener('keydown',(e)=>soundeFunc(e));
+  // window.addEventListener('keyup',(e)=>silentFunc(e));
+
+  function removeTransition(e) {
+    if (e.propertyName !== 'transform') return;
+    e.target.classList.remove('playing');
+  }
+  function playSound(e) {
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+    if(!audio) return; // 이 줄이 없으면 맞는 키코드가 없을때 에러가 나는데, 함수를 끝냄으로 에러를 피함
+    key.classList.add('playing');
+    audio.currentTime = 0; // .currentTime = audio나 video의 메소드. 설정한 값이 재생시작 포인트가 된다.
+    audio.play();
+  }
+  window.addEventListener('keydown', playSound);
+  const keys = Array.from(document.querySelectorAll('.key')); // Array.form 배열로 바꾸어 줌
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition)); 
+
+</script>
+
+
+</body>
+</html>
