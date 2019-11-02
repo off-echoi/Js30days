@@ -1,0 +1,46 @@
+<html lang="ko-kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JS+CSS Clock</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="clock">
+        <div class="clock-face">
+            <div class="hand hour-hand"></div>
+            <div class="hand min-hand"></div>
+            <div class="hand seconds-hand"></div>
+        </div>
+    </div>
+    <button class="stop-btn">STOP!</button>
+    <button class="start-btn">STRAT!</button>
+    <script>
+        // const hour = document.querySelector('.hour-hand');
+        // const min = document.querySelector('.min-hand');
+        const secondsHand = document.querySelector('.seconds-hand');
+        const stop = document.querySelector('.stop-btn');
+        const start = document.querySelector('.start-btn');
+
+        // let secondS = second.setAttribute('style',`transform: rotate(90deg)`);
+        function setDate(){
+            const date = new Date();
+            const seconds = date.getSeconds();
+            const secondsDegree =  ((seconds / 60) * 360);
+            secondsHand.style.transform = `rotate(${secondsDegree}deg)`
+            console.log(seconds);
+        }
+        const interval = setInterval(setDate,1000);
+
+        stop.addEventListener('click',()=>{
+            clearInterval(interval);
+        });
+
+        start.addEventListener('click',(e)=>{
+            clearInterval(interval);
+            interval;
+        });
+    </script>
+</body>
+</html>

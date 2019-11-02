@@ -99,7 +99,7 @@
     audio.play();
   }
   window.addEventListener('keydown', playSound);
-  const keys = Array.from(document.querySelectorAll('.key')); // Array.form 배열로 바꾸어 줌
+  const keys = Array.from(document.querySelectorAll('.key')); // Array.from 배열로 바꾸어 줌
   keys.forEach(key => key.addEventListener('transitionend', removeTransition)); 
 
 </script>
