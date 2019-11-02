@@ -17,8 +17,8 @@
     <button class="stop-btn">STOP!</button>
     <button class="start-btn">STRAT!</button>
     <script>
-        // const hour = document.querySelector('.hour-hand');
-        // const min = document.querySelector('.min-hand');
+        const hourHand = document.querySelector('.hour-hand');
+        const minHand = document.querySelector('.min-hand');
         const secondsHand = document.querySelector('.seconds-hand');
         const stop = document.querySelector('.stop-btn');
         const start = document.querySelector('.start-btn');
@@ -27,19 +27,30 @@
         function setDate(){
             const date = new Date();
             const seconds = date.getSeconds();
-            const secondsDegree =  ((seconds / 60) * 360);
-            secondsHand.style.transform = `rotate(${secondsDegree}deg)`
-            console.log(seconds);
+            const secondsDegree =  (seconds*6)+90;
+            secondsHand.style.transform = `rotate(${secondsDegree}deg)`;
+            // console.log(seconds);
+            const min = date.getMinutes();
+            const minDegree = (min*6)+90;
+            minHand.style.transform = `rotate(${minDegree}deg)`;
+            
+            const hours = date.getHours();
+            const hoursDegree = (hours*6)+90;
+            hourHand.style.transform = `rotate(${hoursDegree}deg)`;
+            
         }
-        const interval = setInterval(setDate,1000);
-
+        let interval
+        function intervalFunc(){
+            interval = setInterval(setDate,1000);
+        }
+        intervalFunc();
         stop.addEventListener('click',()=>{
             clearInterval(interval);
         });
 
         start.addEventListener('click',(e)=>{
             clearInterval(interval);
-            interval;
+            intervalFunc();
         });
     </script>
 </body>
