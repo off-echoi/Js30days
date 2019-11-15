@@ -58,12 +58,26 @@
       };
     };
 
-	const sliderImages = document.querySelector('.slide-in');
+	const sliderImages = document.querySelectorAll('.slide-in');
 
 	function checkSlide(e){
-		console.log(e);
+    sliderImages.forEach(v => {
+      // console.log(window.scrollY)
+      // 이미지가 반이 보였을 때
+      const slideInAt = (window.scrollY + window.innerHeight)-(v.height/2);
+      // 이미지 마지막
+      const imageBottom = v.offsetTop + v.height;
+      const ifHalfShown = slideInAt > v.offsetTop; 
+      isNotScrollPast = window.scrollY < imageBottom;
+      if(ifHalfShown && isNotScrollPast){
+        v.classList.add('active');
+      }else{
+        v.classList.remove('active')
+      }
+    });
 	};
 
+	window.addEventListener('scroll',debounce(checkSlide));
   </script>
 
   <style>
