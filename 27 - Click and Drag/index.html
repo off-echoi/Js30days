@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko-kr">
 <head>
   <meta charset="UTF-8">
   <title>Click and Drag</title>
@@ -38,13 +38,14 @@
   const slider = document.querySelector('.items');
   let isDown = false;
   let startX;
-  let scrollLift;
+  let scrollLeft;
 
   slider.addEventListener('mousedown',(e)=>{
     isDown = true;
     slider.classList.add('active');
     startX = e.pageX - slider.offsetLeft;
-    console.log(startX, slider.offsetLeft);
+    scrollLeft = slider.scrollLeft;
+    // console.log(startX, slider.offsetLeft);
 
   });
 
@@ -61,7 +62,10 @@
   slider.addEventListener('mousemove',(e)=>{
     if(!isDown) return; // isDown = false면 동작 안함
     e.preventDefault();
-    
+    const x = e.pageX - slider.offsetLeft;
+    const walk = (x-startX)*3;
+    console.dir(slider);
+    slider.scrollLeft = scrollLeft - walk;
   });
 
 </script>
